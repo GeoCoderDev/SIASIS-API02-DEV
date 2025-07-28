@@ -15,6 +15,15 @@ import isResponsableAuthenticated from "../middlewares/isResponsableAuthenticate
 import checkAuthentication from "../middlewares/checkAuthentication";
 import misDatosRouter from "./api/mis-datos";
 import EventosRouter from "./api/eventos";
+import modificacionesTablasRouter from "./api/modificaciones-tablas";
+
+import isDirectivoAuthenticated from "../middlewares/isDirectivoAuthenticated";
+import isProfesorPrimariaAuthenticated from "../middlewares/isProfesorPrimariaAuthenticated";
+import isProfesorSecundariaAuthenticated from "../middlewares/isProfesorSecundariaAuthenticated";
+import isTutorAuthenticated from "../middlewares/isTutorAuthenticated";
+import isAuxiliarAuthenticated from "../middlewares/isAuxiliarAuthenticated";
+import isPersonalAdministrativoAuthenticated from "../middlewares/isPersonalAdministrativoAuthenticated";
+
 
 const router = Router();
 
@@ -44,6 +53,20 @@ router.use(
   isResponsableAuthenticated,
   checkAuthentication as any,
   misDatosRouter
+);
+
+router.use(
+  "/modificaciones-tablas",
+  decodedRol as any,
+  isDirectivoAuthenticated,
+  isProfesorPrimariaAuthenticated,
+  isProfesorSecundariaAuthenticated,
+  isTutorAuthenticated,
+  isAuxiliarAuthenticated,
+  isPersonalAdministrativoAuthenticated as any,
+  isResponsableAuthenticated,
+  checkAuthentication as any,
+  modificacionesTablasRouter
 );
 
 router.use("/eventos", decodedRol as any, EventosRouter);

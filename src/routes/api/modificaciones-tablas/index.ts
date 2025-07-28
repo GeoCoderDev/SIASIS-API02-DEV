@@ -3,7 +3,7 @@ import { ErrorResponseAPIBase } from "../../../interfaces/shared/apis/types";
 import { SystemErrorTypes } from "../../../interfaces/shared/errors";
 import { GetUltimasModificacionesSuccessResponse } from "../../../interfaces/shared/apis/shared/modificaciones-tablas/types";
 import { handleSQLError } from "../../../lib/helpers/handlers/errors/postgreSQL";
-import { obtenerUltimasModificacionesTablas } from "../../../../core/databases/queries/RDP02/ultimas-modificaciones/obtenerUltimasModificacionesTablas";
+import { obtenerUltimasModificacionesTablas } from "../../../../core/databases/queries/RDP03/ultimas-modificaciones/obtenerUltimasModificacionesTablas";
 
 const router = Router();
 
@@ -11,10 +11,10 @@ const router = Router();
 router.get("/", (async (req: Request, res: Response) => {
   try {
     // Obtener la instancia RDP02 que se está utilizando
-    const rdp02EnUso = req.RDP02_INSTANCE;
+    const rdp03EnUso = req.RDP03_INSTANCE;
 
     // Obtener las modificaciones de las tablas utilizando la función creada
-    const modificaciones = await obtenerUltimasModificacionesTablas(rdp02EnUso);
+    const modificaciones = await obtenerUltimasModificacionesTablas(rdp03EnUso);
 
     return res.status(200).json({
       success: true,
